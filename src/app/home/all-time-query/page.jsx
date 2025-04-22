@@ -8,7 +8,6 @@ const columns = [
   { key: "course", label: "Course" },
   { key: "query", label: "Query" },
   { key: "coupon", label: "Coupon" },
-  { key: "appliedCoupon", label: "Applied Coupon" },
   { key: "totalAmount", label: "Total Amount" },
   { key: "createdAt", label: "Created At" },
 ];

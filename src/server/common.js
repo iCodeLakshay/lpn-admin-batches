@@ -31,9 +31,25 @@ export const getUserLoggedIn = async (data) => {
   }
 };
 
-export const uploadBulkCoupon = async (data) => {
+// export const uploadBulkCoupon = async (data) => {
+//   try {
+//     const res = await apiClient.post(`/api/coupon/bulk`, data);
+//     return res.data;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+export const uploadSingleCoupon = async (data) => {
   try {
-    const res = await apiClient.post(`/api/coupon/bulk`, data);
+    const res = await apiClient.post(`/api/coupon/add-single`, data);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const getAllCoupons = async (data) => {
+  try {
+    const res = await apiClient.get(`/api/coupon/get-all`, data);
     return res.data;
   } catch (err) {
     throw err;
