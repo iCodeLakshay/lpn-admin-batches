@@ -66,8 +66,9 @@ const AddCoupon = () => {
         <input
           type="text"
           placeholder="Enter Coupon Code"
-          className="w-full px-4 py-2 border rounded-lg dark:bg-zinc-800 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="capitalize w-full px-4 py-2 border rounded-lg dark:bg-zinc-800 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={coupon}
+
           onChange={(e) => setCoupon(e.target.value)}
         />
 

@@ -1,7 +1,7 @@
 "use client";
 import { getUserLoggedIn } from "@/server/common";
 import { useRouter } from "next/navigation";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toast";
 
 const Login = () => {
