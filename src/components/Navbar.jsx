@@ -22,6 +22,9 @@ const Navbar = () => {
             <button onClick={() => { window.location.href = '/home/all-time-query' }} className="rounded-md font-semibold hover:cursor-pointer hover:text-blue-800 text-blue-500 transition">
               All Time Queries
             </button>
+            <button onClick={() => { window.location.href = '/coupons' }} className="rounded-md font-semibold hover:cursor-pointer hover:text-blue-800 text-blue-500 transition">
+              Coupons
+            </button>
             <button className="px-4 py-2 rounded-md font-semibold text-white bg-red-500 hover:bg-red-600 transition">
               Logout
             </button>
