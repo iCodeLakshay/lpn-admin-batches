@@ -1,23 +1,49 @@
-'use client';
-import React, { useState } from 'react';
+"use client";
+import { getUserLoggedIn } from "@/server/common";
+import { useRouter } from "next/navigation";
+import React, { use, useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toast";
 
 const Login = () => {
-  const [form, setForm] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setError('');
+    setError("");
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("lnp-landing-admin-page")) {
+      router.push("/home/todays-query");
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.username || !form.password) {
-      setError('Please enter both username and password.');
+      setError("Please enter both username and password.");
       return;
     }
     // TODO: Add authentication logic here
-    alert('Logged in!');
+    getUserLoggedIn({ email: form.username, password: form.password })
+      .then((res) => {
+        if (res.user.role === "admin") {
+          toast.success("Login successful!");
+          router.push("/home/todays-query");
+          localStorage.setItem(
+            "lnp-landing-admin-page",
+            JSON.stringify(res.user)
+          );
+        } else {
+          toast.error("Login failed!");
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+        console.log(err);
+      });
   };
 
   return (
@@ -26,18 +52,23 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg min-w-[320px] w-full max-w-sm transition-colors"
       >
-        <h2 className="mb-6 text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Login</h2>
+        <h2 className="mb-6 text-2xl font-bold text-center text-gray-800 dark:text-gray-100">
+          Login
+        </h2>
         {error && (
           <div className="text-red-600 dark:text-red-400 mb-4 text-center">
             {error}
           </div>
         )}
         <div className="mb-4">
-          <label htmlFor="username" className="block mb-2 text-gray-700 dark:text-gray-200">
-            Username
+          <label
+            htmlFor="username"
+            className="block mb-2 text-gray-700 dark:text-gray-200"
+          >
+            Email
           </label>
           <input
-            type="text"
+            type="mail"
             id="username"
             name="username"
             value={form.username}
@@ -47,7 +78,10 @@ const Login = () => {
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="password" className="block mb-2 text-gray-700 dark:text-gray-200">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-gray-700 dark:text-gray-200"
+          >
             Password
           </label>
           <input
@@ -66,6 +100,7 @@ const Login = () => {
         >
           Login
         </button>
+        <ToastContainer />
       </form>
     </div>
   );
